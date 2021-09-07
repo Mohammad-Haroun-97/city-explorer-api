@@ -5,7 +5,7 @@ const server = express(); // initialize your express app instance
 const weatherData = require('./data/weather.json');
 const cors = require('cors');
 server.use(cors());
-const PORT = 3500;
+const PORT = process.env.PORT;
 
 class Forecast {
   constructor(date,description){
