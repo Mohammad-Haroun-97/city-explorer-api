@@ -7,6 +7,40 @@ const cors = require('cors');
 server.use(cors());
 const PORT = process.env.PORT;
 
+
+
+class Movie {
+  constructor(item) {
+    this.title = item.original_title,
+    this.overview = item.overview,
+    this.average_votes = item.vote_count,
+    this.image_ur = item.image_ur,
+    this.popularity = item.popularity,
+    this.released_on = item.release_date;
+  }
+}
+
+server.get('/movies', (req, res) => {
+  let searchQuery = req.query.city;
+  console.log(searchQuery);
+  const movie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`;
+  axios.get(movie).then(movieValue => {
+    console.log(movieValue.data.results[0].title);
+
+    let movieInfo = movieValue.data.results.map((item) => {
+      return new Movie(item);
+    });
+    
+    res.send(movieInfo);
+  })
+    .catch(err => {
+      res.send(err.message);
+    });
+
+});
+
+
+
 class Forecast {
   constructor(date,description){
     this.date =date;
