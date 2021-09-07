@@ -13,13 +13,15 @@ class Forecast {
     this.description = description;
   }
 }
+
+// http://localhost:3500/weather?searchQuery=Amman
 server.get('/weather',(req,res)=>{
 
     let searchQuery = req.query.searchQuery;
-    let lon = req.query.latitude;
-    let lat = req.query.longitudinal;
+    let lat = req.query.latitude;
+    let lon = req.query.longitudinal;
     const weather =  weatherData.find((item) => {
-      if (item.city_name === searchQuery && item.lon === lon && item.lat === lat) {
+      if (item.city_name === searchQuery || item.lon === lon || item.lat === lat) {
         return(item);
       }
   
@@ -27,10 +29,11 @@ server.get('/weather',(req,res)=>{
     try {
       const weatherDataArr = weather.data.map(item => {
         let date = item.valid_date;
-        let description = `${item.weather.description} `;
+        let description = `${item.weather.description}`;
         return new Forecast(date,description);
       });
       res.send(weatherDataArr);
+      
     }
     catch(error) {
       res.send('Error! Please enter a valid city');
