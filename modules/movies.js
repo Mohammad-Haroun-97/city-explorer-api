@@ -1,5 +1,10 @@
 'use strict'
 
+let movieMomery ={};
+require('dotenv').config();
+
+const axios = require('axios');
+
 class Movie {
     constructor(item) {
       this.title = item.original_title,
@@ -16,13 +21,16 @@ class Movie {
 
 
 
-require('dotenv').config();
+
 
 const axios = require('axios');
 
 function movieHandler (req, res)  {
     let searchQuery = req.query.city;
     console.log(searchQuery);
+    if (movieMomery[searchQuery] !== undefined) {
+      res.send(movieMomery[searchQuery]);
+    } else {
     const movie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`;
     axios.get(movie).then(movieValue => {
       
@@ -41,5 +49,6 @@ function movieHandler (req, res)  {
       });
 
   }
+}
 ;
 module.exports = movieHandler;
