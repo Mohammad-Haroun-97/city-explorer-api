@@ -1,10 +1,22 @@
+'use strict'
 
 const axios = require('axios');
 require('dotenv').config;
-const weather = require('./weather');
 
 
-let weatherHandler = (req, res) => {
+
+class Forecast {
+    constructor(item){
+      this.date =item.valid_date;;
+      this.description= item.weather.description;
+    }
+  }
+
+
+ 
+
+
+function weatherHandler(req, res)  {
     const  latitude  = req.query.lat;
     const longitude  = req.query.long;
 
@@ -16,7 +28,7 @@ axios.get(weatherURL).then(fullWeatherData => {
   console.log(fullWeatherData);
 
   let wantedData = fullWeatherData.data.data.map((item) => {
-    return new weather(item);
+    return new Forecast(item);
   });
 //   console.log(wantedData);
   
@@ -28,3 +40,6 @@ axios.get(weatherURL).then(fullWeatherData => {
 
 };
 module.exports = weatherHandler;
+
+
+ 
