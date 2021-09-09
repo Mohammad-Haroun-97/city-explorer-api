@@ -9,14 +9,19 @@ server.use(cors());
 const PORT = process.env.PORT;
 
 
-const movieHandler = require('./movieHandler');
-const weatherHandler = require('./weatherHandler');
+const movieHandler = require('./modules/movies');
+const weatherHandler = require('./modules/weather');
 
 //handle movies localhost:3030/movies?city=amman
 server.get('/movies', movieHandler);
 
 //handle weather localhost:3030/weather?lat=&lon=
 server.get('/weather', weatherHandler);
+
+
+server.get('*', (req, res) => {
+    res.send('not found');
+})
 
 // class Movie {
 //   constructor(item) {

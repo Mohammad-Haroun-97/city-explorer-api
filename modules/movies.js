@@ -1,10 +1,26 @@
-const Movie = require('./movie');
+'use strict'
+
+class Movie {
+    constructor(item) {
+      this.title = item.original_title,
+      this.overview = item.overview,
+      this.average_votes = item.vote_count,
+      this.image_ur = item.image_ur,
+      this.popularity = item.popularity,
+      this.released_on = item.release_date;
+    }
+  }
+
+ 
+
+
+
 
 require('dotenv').config();
 
 const axios = require('axios');
 
-let movieHandler = (req, res) => {
+function movieHandler (req, res)  {
     let searchQuery = req.query.city;
     console.log(searchQuery);
     const movie = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${searchQuery}`;
