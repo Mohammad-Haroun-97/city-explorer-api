@@ -16,7 +16,9 @@ class Forecast {
  
 
 
+
 function weatherHandler(req, res)  {
+  
   let weatherQuery = req.query.city;
     
 
