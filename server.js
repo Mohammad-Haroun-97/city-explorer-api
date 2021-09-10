@@ -8,30 +8,32 @@ server.use(cors());
 const PORT = process.env.PORT;
 
 class Forecast {
-  constructor(date,description){
-    this.date =date;
-    this.description = description;
+  constructor(item){
+    this.date =item.valid_date;;
+    this.description = `Low of ${item.low_temp} , high of ${item.high_temp} with ${item.weather.description} `;
   }
 }
 
-// http://localhost:3500/weather?searchQuery=Amman
+// http://localhost:3030/weather?searchQuery=Amman&lat=31.9515694&lon=35.9239625
+
 server.get('/weather',(req,res)=>{
 
     let searchQuery = req.query.searchQuery;
     let lat = req.query.latitude;
     let lon = req.query.longitudinal;
+
     const weather =  weatherData.find((item) => {
-      if (item.city_name === searchQuery || item.lon === lon || item.lat === lat) {
+      if (item.city_name === searchQuery || item.lat === lat  || item.lon === lon) {
         return(item);
       }
   
     });
     try {
       const weatherDataArr = weather.data.map(item => {
-        let date = item.valid_date;
-        let description = `${item.weather.description}`;
-        return new Forecast(date,description);
+        
+        return new Forecast(item);
       });
+
       res.send(weatherDataArr);
       
     }
