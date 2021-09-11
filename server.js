@@ -13,6 +13,7 @@ const weatherHandler = require('./modules/Weather');
 
 
 
+
 server.get('/movies',movieHandler );
 
 
@@ -31,5 +32,5 @@ server.get('/weather',weatherHandler);
 
 
 
-  
+
 
