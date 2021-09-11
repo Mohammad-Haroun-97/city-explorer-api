@@ -22,6 +22,8 @@ class Movie {
 
 // http://localhost:3030/movies?api_key=1742e55e6961c331f1b0e9a8c7b098f1&query=amman
 
+// https://lab08-city-api.herokuapp.com/movies?api_key=1742e55e6961c331f1b0e9a8c7b098f1&query=amman
+
 // https://api.themoviedb.org/3/search/movie?api_key=1742e55e6961c331f1b0e9a8c7b098f1&query=amman
 
 
@@ -73,6 +75,8 @@ server.get('/weather', async (req, res) => {
     const searchQuery = req.query.city;
 
 // http://localhost:3030/weather?city=amman&key=e2c95883c34745f58ae63470e722f634
+
+//https://lab08-city-api.herokuapp.com/weather?city=amman&key=e2c95883c34745f58ae63470e722f634
 
 // http://api.weatherbit.io/v2.0/forecast/daily?key=e2c95883c34745f58ae63470e722f634&lat=30&lon=32;
 
