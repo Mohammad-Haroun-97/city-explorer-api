@@ -8,6 +8,7 @@ const cors = require('cors');
 server.use(cors());
 const PORT = process.env.PORT;
 
+
 class Movie {
   constructor(item) {
     this.title = item.original_title,
@@ -37,16 +38,20 @@ server.get('/movies', (req, res) => {
       return new Movie(item);
     });
     console.log(movieInfo);
+
+    
     
     res.send(movieInfo);
   })
 
   
+
     .catch(err => {
       res.send('Error!, you are in catch side');
     });
 
-});
+    
+ });
 
 
 
@@ -54,12 +59,13 @@ server.get('/movies', (req, res) => {
 
 
 
-class Forecast {
-  constructor(item){
-    this.date =item.valid_date;;
-    this.description= item.weather.description;
-  }
-}
+ class Forecast {
+   constructor(item){
+     this.date =item.valid_date;;
+     this.description= item.weather.description;
+   }
+ }
+
 
 server.get('/weather', async (req, res) => {
     const  latitude  = req.query.lat;
@@ -76,13 +82,15 @@ const weatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQ
 
 axios.get(weatherURL).then(fullWeatherData => {
 
-  console.log(fullWeatherData);
 
-  let wantedData = fullWeatherData.data.data.map((item) => {
-    return new Forecast(item);
-  });
-//   console.log(wantedData);
+   console.log(fullWeatherData);
+
+   let wantedData = fullWeatherData.data.data.map((item) => {
+     return new Forecast(item);
+   });
+ //   console.log(wantedData);
   
+
   res.send(wantedData);
 })
   .catch(err => {
@@ -91,6 +99,7 @@ axios.get(weatherURL).then(fullWeatherData => {
   });
 
 });
+
 
 
   
@@ -102,4 +111,3 @@ axios.get(weatherURL).then(fullWeatherData => {
 
 
 
-  //////////////////
